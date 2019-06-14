@@ -5,13 +5,13 @@ API server
 ### Author: Student/Group Name
 Jeff
 
-* [![Build Status](https://www.travis-ci.com/jeff-401-js/lab-04.svg?branch=dev)](https://www.travis-ci.com/jeff-401-js/lab-14)
+* [![Build Status](https://www.travis-ci.com/jeff-401-js/lab-04.svg?branch=dev)](https://www.travis-ci.com/jeff-401-js/API-server)
 
 ### Links and Resources
-* [submission PR](https://github.com/jeff-401-js/lab-14/pull/1)
+* [submission PR](https://github.com/jeff-401-js/API-server/pull/1)
 
-* [travis](https://www.travis-ci.com/jeff-401-js/lab-14)
-* [heroku](https://fierce-tundra-51744.herokuapp.com/)
+* [travis](https://www.travis-ci.com/jeff-401-js/API-server)
+* [heroku-master](https://pure-refuge-90526.herokuapp.com/)
 
 #### Documentation
 * [UML](https://photos.app.goo.gl/cvPCpcn4SpdhPJ5TA)
