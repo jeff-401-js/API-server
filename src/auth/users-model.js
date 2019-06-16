@@ -34,15 +34,6 @@ users.pre('findOne', function() {
   }
 });
 
-
-// const capabilities = {
-//   admin: ['create','read','update','delete'],
-//   editor: ['create', 'read', 'update'],
-//   user: ['read'],
-// };
-
-
-
 users.pre('save', function(next) {
   bcrypt.hash(this.password, 10)
     .then(hashedPassword => {
