@@ -6,14 +6,15 @@
    * @param {object} res - response object
    * @desc contains all middleware
    */
-  
+
 
 const User = require('./users-model.js');
 
 module.exports = (capability) => {
   
   return (req, res, next) => {
-
+    const _authBasic = require('./authModule/authBasic.js'); 
+    const _authBearer = require('./authModule/authBearer.js');
     try {
       let [authType, authString] = req.headers.authorization.split(/\s+/);
 
@@ -29,24 +30,6 @@ module.exports = (capability) => {
       _authError();
     }
 
-
-    function _authBasic(str) {
-    // str: am9objpqb2hubnk=
-      let base64Buffer = Buffer.from(str, 'base64'); // <Buffer 01 02 ...>
-      let bufferString = base64Buffer.toString();    // john:mysecret
-      let [username, password] = bufferString.split(':'); // john='john'; mysecret='mysecret']
-      let auth = {username, password}; // { username:'john', password:'mysecret' }
-
-      return User.authenticateBasic(auth)
-        .then(user => _authenticate(user))
-        .catch(_authError);
-    }
-
-    function _authBearer(authString) {
-      return User.authenticateToken(authString)
-        .then(user => _authenticate(user))
-        .catch(_authError);
-    }
 
     function _authenticate(user) {
       if ( user && (!capability || (user.can(capability))) ) {
