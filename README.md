@@ -5,7 +5,6 @@ API server
 ### Author: Student/Group Name
 Jeff
 
-* [![Build Status](https://www.travis-ci.com/jeff-401-js/lab-04.svg?branch=dev)](https://www.travis-ci.com/jeff-401-js/API-server)
 
 ### Links and Resources
 * [submission PR](https://github.com/jeff-401-js/API-server/pull/1)
