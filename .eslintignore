@@ -4,3 +4,5 @@
 **/coverage/*
 **/build/*
 **/docs/scripts/*
+**/lang-css/*
+**/prettify/*
