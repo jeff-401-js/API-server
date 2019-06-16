@@ -34,22 +34,19 @@ Jeff
   * authorization route
 * Endpoint: `/roles`
   * initialize roles
-* Endpoint `/public-stuff`
-  * auth route
-* Endpoint `/hidden-stuff`
-  * hidden stuff
-* Endpoint `/something-to-read`
-  * read
-* Endpoint `/create-a-thing`
-  * create
-* Endpoint `/update`
-  * update
-* Endpoint `/jp`
-  * patch/update
-* Endpoint `/bye-bye`
-  * delete
-* Endpoint `/everything`
-  * get all
+* Endpoint `//api/v1/:model`
+  * handlegetall route
+* Endpoint `/api/v1/:model`
+  * auth(create) handlepost
+* Endpoint `//api/v1/:model/:id`
+  * handlegetone
+* Endpoint `/api/v1/:model/:id`
+  * auth(update) handleput
+* Endpoint `/api/v1/:model/:id`
+  * auth(update) handleput
+* Endpoint `/api/v1/:model/:id`
+  * auth(delete) delete
+
 
 #### Tests
 * How do you run tests?
