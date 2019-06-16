@@ -1,5 +1,13 @@
 'use strict';
 
+/**
+   * @module middleware module
+   * @param {object} req - request object
+   * @param {object} res - response object
+   * @desc contains all middleware
+   */
+  
+
 const User = require('./users-model.js');
 
 module.exports = (capability) => {
