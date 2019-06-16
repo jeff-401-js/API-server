@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: models/memory-model.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: models/memory-model.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>'use strict';
+
+const uuid = require('uuid/v4');
+
+/**
+* @module src/models/memory-model
+*/
+
+/**
+ * @Class Memory Model
+ * @desc memory model for count, get, post, delete, and put requests
+ */
+
+class Model {
+
+  /**
+   * @method constructor
+   * @param {categories} schema - schema from categories
+   */
+
+  constructor(schema) {
+    this.schema = schema;
+    this.database = [];
+  }
+
+  /**
+   * @method sanitize
+   * @param {object} entry - Entry to be sanitized
+   * @desc Sanitize entry
+   */
+  
+  sanitize(entry) {
+
+    let valid = true;
+    let record = {};
+
+    Object.keys(this.schema).forEach( field => {
+      if ( this.schema[field].required ) {
+        if (entry[field]) {
+          record[field] = entry[field];
+        } else {
+          valid = false;
+        }
+      }
+      else {
+        record[field] = entry[field];
+      }
+    });
+    
+    return valid ? record : undefined;
+  }
+  
+  /**
+   * @method count
+   * @desc Keep count of what is in db
+   */
+
+  count() {
+    return this.database.length;
+  }
+
+  /**
+   * @method get
+   * @param {string} id - Id for specific entries
+   * @desc Get one or all items from database
+   */
+
+  get(id) {
+    const records = id ? this.database.filter( (record) => record._id === id ) : this.database;
+    return Promise.resolve(records);
+  }
+
+  /**
+   * @method post
+   * @param {string} record - information for what should be added
+   * @desc Add a record to the database
+   */
+
+  post(entry) {
+    entry._id = uuid();
+    let record = this.sanitize(entry);
+    if ( record._id ) { this.database.push(record); }
+    return Promise.resolve(record);
+  }
+
+  /**
+   * @method delete
+   * @param {string} id - Id for specific entries
+   * @desc Delete item from the database
+   */
+
+  delete(id) {
+    this.database = this.database.filter((record) => record._id !== id );
+    return this.get(id);
+  }
+
+  /**
+   * @method put
+   * @param {string} id - Id for specific entries
+   * @param {string} record - information for what should be added/changed
+   * @desc Modify one item in database
+   */
+
+  put(id, entry) {
+    let record = this.sanitize(entry);
+    if( record._id ) { this.database = this.database.map((item) => (item._id === id) ? record : item  ); }
+    return this.get(id);
+  }
+  
+}
+
+/**
+ * Export object
+ * @type {Object}
+ */
+
+module.exports = Model;</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-src_api_v1.html">src/api/v1</a></li><li><a href="module-src_app.html">src/app</a></li><li><a href="module-src_auth_authModule_authBasic.html">src/auth/authModule/authBasic</a></li><li><a href="module-src_auth_authModule_authBearer.html">src/auth/authModule/authBearer</a></li><li><a href="module-src_auth_authModule_authenticate.html">src/auth/authModule/authenticate</a></li><li><a href="module-src_auth_authModule_authError.html">src/auth/authModule/authError</a></li><li><a href="module-src_auth_middleware.html">src/auth/middleware</a></li><li><a href="module-src_auth_router.html">src/auth/router</a></li><li><a href="module-src_middleware_404.html">src/middleware/404</a></li><li><a href="module-src_middleware_500.html">src/middleware/500</a></li><li><a href="module-src_middleware_model-finder.html">src/middleware/model-finder</a></li><li><a href="module-src_models_categories_categories-model.html">src/models/categories/categories-model</a></li><li><a href="module-src_models_memory-model.html">src/models/memory-model</a></li><li><a href="module-src_models_mongo-model.html">src/models/mongo-model</a></li><li><a href="module-src_models_players_players-model.html">src/models/players/players-model</a></li><li><a href="module-src_models_teams_teams-model.html">src/models/teams/teams-model</a></li></ul><h3>Classes</h3><ul><li><a href="module-src_models_categories_categories-model-Categories%2520Model.html">Categories Model</a></li><li><a href="module-src_models_memory-model-Memory%2520Model.html">Memory Model</a></li><li><a href="module-src_models_mongo-model-Mongo%2520Model.html">Mongo Model</a></li><li><a href="module-src_models_players_players-model-Players%2520Model.html">Players Model</a></li><li><a href="module-src_models_teams_teams-model-Teams%2520Model.html">Teams Model</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.2</a> on Sun Jun 16 2019 14:12:07 GMT-0800 (GMT-08:00)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
