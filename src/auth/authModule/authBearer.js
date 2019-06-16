@@ -16,9 +16,9 @@ const _authError = require('./authError.js');
    */
 
 
-function _authBearer(authString) {
+function _authBearer(authString, capability) {
   return User.authenticateToken(authString)
-    .then(user => _authenticate(user))
+    .then(user => _authenticate(user, capability))
     .catch(_authError);
 }
 

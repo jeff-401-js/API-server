@@ -14,7 +14,7 @@ const _authError = require('./authError.js');
  * @desc Handles creating auth information and calls User.authenticateBasic and handles the return
  */
 
-function _authBasic(str) {
+function _authBasic(str, capability) {
   // str: am9objpqb2hubnk=
   let base64Buffer = Buffer.from(str, 'base64'); // <Buffer 01 02 ...>
   let bufferString = base64Buffer.toString();    // john:mysecret
@@ -22,7 +22,7 @@ function _authBasic(str) {
   let auth = {username, password}; // { username:'john', password:'mysecret' }
 
   return User.authenticateBasic(auth)
-    .then(user => _authenticate(user))
+    .then(user => _authenticate(user, capability))
     .catch(_authError);
 }
 
