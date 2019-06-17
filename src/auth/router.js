@@ -14,7 +14,7 @@ const oauth = require('./oauth/google.js');
 
 /**
  * post route assign role
- * @route POST /{role}/
+ * @route POST /{role}
  * @consumes application/json application/xml
  * @returns {Object} 500 - Server error
  * @returns {Object} 200 - { count: 2, results: [{}, {}]}
@@ -32,7 +32,7 @@ authRouter.post('/role', (req, res, next) => {
 
 /**
  * signup user
- * @route POST /{signup}/
+ * @route POST /{signup}
  * @consumes application/json application/xml
  * @returns {Object} 500 - Server error
  * @returns {Object} 200 - { count: 2, results: [{}, {}]}
@@ -53,7 +53,7 @@ authRouter.post('/signup', (req, res, next) => {
 
 /**
  * signin user
- * @route GET /{signin}/
+ * @route GET /{signin}
  * @consumes application/json application/xml
  * @returns {Object} 500 - Server error
  * @returns {Object} 200 - { count: 2, results: [{}, {}]}
@@ -66,7 +66,7 @@ authRouter.post('/signin', auth(), (req, res, next) => {
 
 /**
  * oauth user
- * @route GET /{oauth}/
+ * @route GET /{oauth}
  * @consumes application/json application/xml
  * @returns {Object} 500 - Server error
  * @returns {Object} 200 - { count: 2, results: [{}, {}]}
@@ -82,7 +82,7 @@ authRouter.get('/oauth', (req,res,next) => {
 
 /**
  * Save key
- * @route POST /{model}/
+ * @route POST /{model}
  * @consumes application/json application/xml
  * @returns {Object} 500 - Server error
  * @returns {Object} 200 - { count: 2, results: [{}, {}]}
