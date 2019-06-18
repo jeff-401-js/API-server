@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: models/mongo-model.js</title>
+    <title>JSDoc: Source: auth/utils.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: models/mongo-model.js</h1>
+    <h1 class="page-title">Source: auth/utils.js</h1>
 
     
 
@@ -29,77 +29,80 @@
             <pre class="prettyprint source linenums"><code>'use strict';
 
 /**
-* @module src/models/mongo-model
-*/
-
-/**
- * @Class Mongo Model
- * @desc Mongo model for get, post, put, and delete requests
+ * Utils Module
+ * @module src/auth/utils
  */
 
-class Model {
-
-  /**
-   * @method constructor
-   * @param {players} schema - schema from players
-   * @param {teams} schema - schema from teams
-   */
-
-  constructor(schema) {
-    this.schema = schema;
-  }
-
-  /**
-   * @method get
-   * @param {string} _id - Id for specific entries
-   * @desc Get one or all items from database
-   */
-
-  get(_id) {
-    let queryObject = _id ? {_id} : {};
-    return this.schema.find(queryObject);
-  }
-  
-  /**
-   * @method post
-   * @param {string} record - information for what should be added
-   * @desc Add an item to the database
-   */
-
-  post(record) {
-    let newRecord = new this.schema(record);
-    return newRecord.save();
-  }
-
-  /**
-   * @method put
-   * @param {string} _id - Id for specific entries
-   * @param {string} record - information for what should be added/changed
-   * @desc Modify one item in database
-   */
-
-  put(_id, record) {
-    return this.schema.findByIdAndUpdate(_id, record, {new:true});
-  }
-
-  /**
-   * @method delete
-   * @param {string} _id - Id for specific entries
-   * @desc Delete an item out of database
-   */
-
-  delete(_id) {
-    return this.schema.findByIdAndDelete(_id);
-  }
-
-}
 
 /**
- * Export object
+ * utils export
  * @type {Object}
  */
 
-module.exports = Model;
+
+let utils = module.exports = {};
+
+const User = require('./users-model.js');
+
+/**
+   * @param {object} req - request
+   * @param {object} authString - user object containing user credentials
+   * @param {object} capability - capabilities
+   * @desc Handles authenticating a user and moves onto next middleware or returns and error
+   */
+
+
+utils._authBearer = function(req, authString, capability) {
+  return User.authenticateToken(authString)
+    .then(user => utils._authenticate(req, user, capability))
+    .catch(utils._authError);
+};
+
+/**
+ * @param {object} req - request
+ * @param {object} str - string
+ * @param {object} capability - capability
+ * @desc Handles creating auth information and calls User.authenticateBasic and handles the return
+ */
+
+utils._authBasic = function(req, str, capability) {
+  // str: am9objpqb2hubnk=
+  let base64Buffer = Buffer.from(str, 'base64'); // &lt;Buffer 01 02 ...>
+  let bufferString = base64Buffer.toString();    // john:mysecret
+  let [username, password] = bufferString.split(':'); // john='john'; mysecret='mysecret']
+  let auth = {username, password}; // { username:'john', password:'mysecret' }
+
+  return User.authenticateBasic(auth)
+    .then(user => utils._authenticate(req, user, capability))
+    .catch(utils._authError);
+};
+
+/**
+ * @param {object} req - request
+   * @param {object} user - user object containing user credentials
+   * @param {object} capability - capability
+   * @desc Handles authenticating a user and moves onto next middleware or returns and error
+   */
+
+utils._authenticate = function(req, user, capability) {
+
+  if ( user &amp;&amp; (!capability || (user.can(capability))) ) {
+    req.user = user;
+    req.token = user.generateToken();
+  }
+  else {
+    utils._authError();
+  }
+};
+
+/**
+   * @param {object} next - next function
+   * @desc Handles all auth errors
+   */
+
+utils._authError = function(next) {
+  next('Invalid User ID/Password');
+};
 </code></pre>
         </article>
     </section>
