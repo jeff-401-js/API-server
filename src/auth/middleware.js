@@ -28,10 +28,10 @@ module.exports = (capability) => {
       case 'bearer':
         return utils._authBearer(req, authString, capability);
       default:
-        return utils._authError();
+        return utils._authError(next);
       }
     } catch (e) {
-      utils._authError();
+      utils._authError(next);
     }
   };
 };
