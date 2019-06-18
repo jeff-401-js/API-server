@@ -15,22 +15,23 @@
 module.exports = (capability) => {
   
   return (req, res, next) => {
-    const _authBasic = require('./authModule/authBasic.js'); 
-    const _authBearer = require('./authModule/authBearer.js');
-    const _authError = require('./authModule/authError.js');
+    const utils = require('./utils.js');
+    // const _authBasic = require('./authModule/authBasic.js'); 
+    // const _authBearer = require('./authModule/authBearer.js');
+    // const _authError = require('./authModule/authError.js');
     try {
       let [authType, authString] = req.headers.authorization.split(/\s+/);
 
       switch (authType.toLowerCase()) {
       case 'basic':
-        return _authBasic(authString, capability);
+        return utils._authBasic(req, authString, capability);
       case 'bearer':
-        return _authBearer(authString, capability);
+        return utils._authBearer(req, authString, capability);
       default:
-        return _authError();
+        return utils._authError();
       }
     } catch (e) {
-      _authError();
+      utils._authError();
     }
   };
 };
