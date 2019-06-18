@@ -6,19 +6,23 @@
  */
 
 /**
-   * @param {object} req - request object
-   * @param {object} res - response object
-   * @desc contains all middleware
-   */
+ * auth export
+ * @type {Object}
+ */
 
 
 module.exports = (capability) => {
   
+  /**
+   * @param {object} req - request object
+   * @param {object} res - response object
+   * @param {object} next - next function
+   * @desc contains all middleware
+   */
+
   return (req, res, next) => {
     const utils = require('./utils.js');
-    // const _authBasic = require('./authModule/authBasic.js'); 
-    // const _authBearer = require('./authModule/authBearer.js');
-    // const _authError = require('./authModule/authError.js');
+
     try {
       let [authType, authString] = req.headers.authorization.split(/\s+/);
 
