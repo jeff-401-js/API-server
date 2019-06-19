@@ -43,10 +43,10 @@ users.pre('save', function(next) {
     .catch(error => {throw new Error(error);});
 });
 
-users.statics.createFromOauth = function(email) {
+users.statics.createFromOauth = function(googleUser) {
 
-  if(! email) { return Promise.reject('Validation Error'); }
-
+  if(! googleUser) { return Promise.reject('Validation Error'); }
+  let email = googleUser.email;
   return this.findOne( {email} )
     .then(user => {
       if( !user ) { throw new Error('User Not Found'); }
@@ -55,7 +55,8 @@ users.statics.createFromOauth = function(email) {
     .catch( error => {
       let username = email;
       let password = 'none';
-      return this.create({username, password, email});
+      let role = 'user';
+      return this.create({username, password, email, role});
     });
 
 };
@@ -103,10 +104,10 @@ users.methods.comparePassword = function(password) {
 };
 
 users.methods.generateToken = function(type) {
-  
+  console.log(this.role);
   let token = {
     id: this._id,
-    capabilities: this.acl.capabilities,
+    capabilities: this.role,
     type: type || 'user',
   };
   
