@@ -8,6 +8,8 @@ const mongoose = require('mongoose');
 //   user: ['read'],
 // };
 
+// const capabilities = ['create', 'read', 'update', 'delete', 'superuser'];
+
 const rolesSchema = new mongoose.Schema({
   role: {type: String, required:true},
   capabilities: {type: Array, required:true},

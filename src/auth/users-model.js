@@ -11,11 +11,18 @@ const SECRET = process.env.SECRET || 'foobar';
 
 const usedTokens = new Set();
 
+const capabilities = {
+  admin: ['create','read','update','delete', 'superuser'],
+  editor: ['create', 'read', 'update'],
+  user: ['read'],
+};
+
 const users = new mongoose.Schema({
   username: {type:String, required:true, unique:true},
   password: {type:String, required:true},
   email: {type: String},
   role: {type: String, default:'user', enum: ['admin','editor','user']},
+  // role: {type: String, default: 'admin'},
 }, { toObject:{virtuals:true}, toJSON:{virtuals:true}});
 
 users.virtual('acl', {
@@ -34,11 +41,7 @@ users.pre('findOne', function() {
   }
 });
 
-const capabilities = {
-  admin: ['create','read','update','delete', 'superuser'],
-  editor: ['create', 'read', 'update'],
-  user: ['read'],
-};
+
 
 users.pre('save', function(next) {
   bcrypt.hash(this.password, 10)
@@ -75,10 +78,12 @@ users.statics.authenticateToken = function(token) {
   
   try {
     let parsedToken = jwt.verify(token, SECRET);
+    
     (SINGLE_USE_TOKENS) && parsedToken.type !== 'key' && usedTokens.add(token);
     let query = {_id: parsedToken.id};
+    console.log(query);
     return this.findOne(query);
-  } catch(e) { throw new Error('Invalid Token'); }
+  } catch(e) { console.log('rejecteds'); throw new Error('Invalid Token'); }
   
 };
 
@@ -114,20 +119,24 @@ users.methods.generateToken = function(type) {
   let token = {
     id: this._id,
     capabilities: capabilities[this.role],
-    type: type || 'user',
+    type: type || this.role || 'user',
   };
-  
+  console.log(capabilities[this.role]);
   let options = {};
   if ( type !== 'key' && !! TOKEN_EXPIRE ) { 
     options = { expiresIn: TOKEN_EXPIRE };
   }
-  
+  console.log('further in generate');
   return jwt.sign(token, SECRET, options);
 };
 
 users.methods.can = function(capability) {
   return this.acl.capabilities.includes(capability);
 };
+
+// users.methods.can = function(capability) {
+//   return capabilities[this.role].includes(capability);
+// };
 
 users.methods.generateKey = function() {
   return this.generateToken('key');

@@ -19,18 +19,19 @@ module.exports = (capability) => {
    * @param {object} next - next function
    * @desc contains all middleware
    */
-
+  const utils = require('./utils.js');
   return (req, res, next) => {
-    const utils = require('./utils.js');
 
+    
     try {
       let [authType, authString] = req.headers.authorization.split(/\s+/);
-
+      
       switch (authType.toLowerCase()) {
       case 'basic':
-        return utils._authBasic(req, authString, capability);
+        return utils._authBasic(req, authString, capability, next);
       case 'bearer':
-        return utils._authBearer(req, authString, capability);
+          console.log('authenticate');
+        return utils._authBearer(req, authString, capability, next);
       default:
         return utils._authError(next);
       }
