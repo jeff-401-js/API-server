@@ -34,6 +34,12 @@ users.pre('findOne', function() {
   }
 });
 
+const capabilities = {
+  admin: ['create','read','update','delete', 'superuser'],
+  editor: ['create', 'read', 'update'],
+  user: ['read'],
+};
+
 users.pre('save', function(next) {
   bcrypt.hash(this.password, 10)
     .then(hashedPassword => {
@@ -107,7 +113,7 @@ users.methods.generateToken = function(type) {
   console.log(this.role);
   let token = {
     id: this._id,
-    capabilities: this.role,
+    capabilities: capabilities[this.role],
     type: type || 'user',
   };
   
