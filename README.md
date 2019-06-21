@@ -18,8 +18,25 @@ Jeff
 #### `.env` requirements
 * `PORT` - 3000
 * `SECRET` - somestring
-* `MONGODB_URI` - mongodb://localhost:27017/class-13
+* `MONGODB_URI` - mongodb://localhost:27017/dbname
 * `EXPIRE_TIME` - 15m
+
+* Add Roles with capabilities to db by going to --> localhost:3000/role in postman then adding
+
+{
+	"role": "user",
+	"capabilities": ["read"]
+}
+
+{
+	"role": "editor",
+	"capabilities": ["create", "read", "update"]
+}
+
+{
+	"role": "admin",
+	"capabilities": ["create", "read", "update", "delete", "superuser"]
+}
 
 #### Running the app
 * `nodemon index.js`
