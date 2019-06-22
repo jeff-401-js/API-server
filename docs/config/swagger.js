@@ -11,7 +11,7 @@ module.exports = {
     produces: [
       'application/json',
     ],
-    host: 'localhost:3002',
+    host: 'localhost:3000',
     schemes: ['http'],
     securityDefinitions: {
       basicAuth: {
