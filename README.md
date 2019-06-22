@@ -12,6 +12,8 @@ Jeff
 * [heroku-master](https://pure-refuge-90526.herokuapp.com/)
 
 #### Documentation
+* [JSDOC](https://pure-refuge-90526.herokuapp.com/docs/)
+* [Swagger](https://pure-refuge-90526.herokuapp.com/api-docs)
 * [UML-Data-Flow](https://photos.app.goo.gl/L9LG7DB34ZKZvqtE8)
 
 #### Modules
