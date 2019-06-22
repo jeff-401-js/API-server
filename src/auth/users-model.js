@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * @module src/auth/users-model.js
+ * @module src/auth/users-model
  */
 
 
