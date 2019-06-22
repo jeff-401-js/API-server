@@ -8,7 +8,8 @@
     "watch": "nodemon index.js",
     "lint": "eslint \"**/*.js\"",
     "test-watch": "jest --watchAll",
-    "test": "jest"
+    "jsdoc": "jsdoc -c ./docs/config/jsdoc.config.json .",
+    "test": "jest --coverage"
   },
   "jest": {
     "testEnvironment": "node"
@@ -21,9 +22,11 @@
     "cors": "^2.8.4",
     "debug": "^4.1.0",
     "dotenv": "^6.1.0",
-    "express": "^4.16.3",
-    "jest": "^23.6.0",
     "eslint": "^5.16.0",
+    "express": "^4.16.3",
+    "express-swagger-generator": "^1.1.14",
+    "jest": "^23.6.0",
+    "jsdoc": "^3.6.2",
     "jsonwebtoken": "^8.4.0",
     "mongodb-memory-server": "^2.7.3",
     "mongoose": "^5.3.13",
