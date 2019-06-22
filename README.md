@@ -18,7 +18,7 @@ Jeff
 #### `.env` requirements
 * `PORT` - 3000
 * `SECRET` - somestring
-* `MONGODB_URI` - mongodb://localhost:27017/dbname
+* `MONGODB_URI` - mongodb://localhost:27017/dbname 
 * `EXPIRE_TIME` - 15m
 
 * Add Roles with capabilities to db by going to --> localhost:3000/role in postman then adding
