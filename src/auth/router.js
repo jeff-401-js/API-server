@@ -17,7 +17,7 @@ const oauth = require('./oauth/google.js');
  * @route POST /{role}
  * @consumes application/json application/xml
  * @returns {Object} 500 - Server error
- * @returns {Object} 200 - { count: 2, results: [{}, {}]}
+ * @returns {Object} 200 - assigns roles to users capabilities
  */
 
 authRouter.post('/role', (req, res, next) => {
