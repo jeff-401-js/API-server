@@ -104,4 +104,4 @@ Jeff
 
 #### Tests
 * How do you run tests?
-* `npm test - test all` or `npm test filename`
+* `npm test` - test all or `npm test filename`

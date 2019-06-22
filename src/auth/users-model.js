@@ -1,5 +1,10 @@
 'use strict';
 
+/**
+ * @module src/auth/users-model.js
+ */
+
+
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -17,6 +22,11 @@ const capabilities = {
   user: ['read'],
 };
 
+/**
+ * 
+ * @desc Users schema
+ */
+
 const users = new mongoose.Schema({
   username: {type:String, required:true, unique:true},
   password: {type:String, required:true},
@@ -24,12 +34,22 @@ const users = new mongoose.Schema({
   role: {type: String, default:'user', enum: ['admin','editor','user']},
 }, { toObject:{virtuals:true}, toJSON:{virtuals:true}});
 
+/**
+ * 
+ * @desc Users virtual linking to roles
+ */
+
 users.virtual('acl', {
   ref: 'roles',
   localField: 'role',
   foreignField: 'role',
   justOne: true,
 });
+
+/**
+ * 
+ * @desc Populating the acl table with users roles
+ */
 
 users.pre('findOne', function() {
   try{
@@ -51,6 +71,13 @@ users.pre('save', function(next) {
     .catch(error => {throw new Error(error);});
 });
 
+
+/**
+ *  createFromOauth
+   * @param {object} googleUser - passed in user info
+   * @desc Create From Oauth function takes in a google users info and creates a user
+   */
+  
 users.statics.createFromOauth = function(googleUser) {
 
   if(! googleUser) { return Promise.reject('Validation Error'); }
@@ -69,6 +96,13 @@ users.statics.createFromOauth = function(googleUser) {
 
 };
 
+
+/**
+ *  authenticateToken
+   * @param {object} token - passed in token
+   * @desc Runs checks to see if current token exists and is valid
+   */
+
 users.statics.authenticateToken = function(token) {
   
   if ( usedTokens.has(token ) ) {
@@ -85,6 +119,12 @@ users.statics.authenticateToken = function(token) {
   
 };
 
+/**
+ *  authenticateBasic
+   * @param {object} auth - passed in authentication/user info
+   * @desc Runs checks to see if current user is in db and is using correct info
+   */
+
 users.statics.authenticateBasic = function(auth) {
   let query = {username:auth.username};
   return this.findOne(query)
@@ -92,6 +132,12 @@ users.statics.authenticateBasic = function(auth) {
     .catch(error => {throw error;});
 };
 
+
+/**
+ *  authenticateBearer
+   * @param {object} token - passed in token
+   * @desc Runs checks to see if current token is valid and can be used to access
+   */
 
 users.statics.authenticateBearer = function(token){
 
@@ -107,10 +153,22 @@ users.statics.authenticateBearer = function(token){
   return this.findOne(query);
 };
 
+/**
+ *  comparePassword
+   * @param {object} password - users password
+   * @desc Runs bcrypt to compare passed in password to one on file
+   */
+
 users.methods.comparePassword = function(password) {
   return bcrypt.compare( password, this.password )
     .then( valid => valid ? this : null);
 };
+
+/**
+ *  generateToken
+   * @param {object} type - type of user, admin, editor, etc.
+   * @desc generates a token if valid and has capability
+   */
 
 users.methods.generateToken = function(type) {
   let token = {
@@ -125,12 +183,27 @@ users.methods.generateToken = function(type) {
   return jwt.sign(token, SECRET, options);
 };
 
+/**
+ *  can
+   * @param {object} capability - users capability
+   * @desc checks to see if the passed in capablity has a certain role
+   */
+
 users.methods.can = function(capability) {
   return capabilities[this.role].includes(capability);
 };
 
+/**
+ *  generateKey
+   * @desc generates a key when called
+   */
 users.methods.generateKey = function() {
   return this.generateToken('key');
 };
+
+/**
+ * Export object
+ * @type {Object}
+ */
 
 module.exports = mongoose.model('users', users);
