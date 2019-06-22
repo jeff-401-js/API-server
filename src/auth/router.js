@@ -35,7 +35,7 @@ authRouter.post('/role', (req, res, next) => {
  * @route POST /{signup}
  * @consumes application/json application/xml
  * @returns {Object} 500 - Server error
- * @returns {Object} 200 - { count: 2, results: [{}, {}]}
+ * @returns {Object} 200 - adds new user and token to request object
  */
 
 authRouter.post('/signup', (req, res, next) => {
@@ -56,7 +56,7 @@ authRouter.post('/signup', (req, res, next) => {
  * @route GET /{signin}
  * @consumes application/json application/xml
  * @returns {Object} 500 - Server error
- * @returns {Object} 200 - { count: 2, results: [{}, {}]}
+ * @returns {Object} 200 - validates user signing in and adds token to request object
  */
 
 authRouter.get('/signin', auth(), (req, res, next) => {
@@ -69,7 +69,7 @@ authRouter.get('/signin', auth(), (req, res, next) => {
  * @route GET /{oauth}
  * @consumes application/json application/xml
  * @returns {Object} 500 - Server error
- * @returns {Object} 200 - { count: 2, results: [{}, {}]}
+ * @returns {Object} 200 - valid user using google id
  */
 
 authRouter.get('/oauth', (req,res,next) => {
@@ -82,10 +82,10 @@ authRouter.get('/oauth', (req,res,next) => {
 
 /**
  * Save key
- * @route POST /{model}
+ * @route POST /{key}
  * @consumes application/json application/xml
  * @returns {Object} 500 - Server error
- * @returns {Object} 200 - { count: 2, results: [{}, {}]}
+ * @returns {Object} 200 - generates key and sends it
  */
 
 authRouter.post('/key', auth, (req,res,next) => {
