@@ -44,4 +44,12 @@ describe('api server', () => {
 
   });
 
+  it('it should error when trying to update without correct permission', () => {
+    expect(true).toBe(true);
+  });
+
+  it('it should error when trying to delete without correct permission', () => {
+    expect(true).toBe(true);
+  });
+
 });

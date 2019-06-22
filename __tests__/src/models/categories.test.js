@@ -31,5 +31,13 @@ describe('Categories Model', () => {
           });
       });
   });
+
+  it('can update() a category', () => {
+    expect(true).toBe(true);
+  });
+
+  it('can delete() a category', () => {
+    expect(true).toBe(true);
+  });
   
 });

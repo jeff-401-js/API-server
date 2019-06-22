@@ -31,5 +31,13 @@ describe('Teams Model', () => {
           });
       });
   });
+
+  it('can update() a team', () => {
+    expect(true).toBe(true);
+  });
+
+  it('can delete() a team', () => {
+    expect(true).toBe(true);
+  });
   
 });

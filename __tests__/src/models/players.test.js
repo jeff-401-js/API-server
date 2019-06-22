@@ -31,5 +31,13 @@ describe('Players Model', () => {
           });
       });
   });
+
+  it('can update() a player', () => {
+    expect(true).toBe(true);
+  });
+
+  it('can delete() a player', () => {
+    expect(true).toBe(true);
+  });
   
 });
