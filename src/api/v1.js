@@ -131,6 +131,7 @@ function handlePost(request,response,next) {
    */
 
 function handlePut(request,response,next) {
+  console.log('input');
   request.model.put(request.params.id, request.body)
     .then( result => response.status(200).json(result) )
     .catch( next );

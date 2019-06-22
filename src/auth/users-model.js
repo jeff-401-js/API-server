@@ -22,7 +22,6 @@ const users = new mongoose.Schema({
   password: {type:String, required:true},
   email: {type: String},
   role: {type: String, default:'user', enum: ['admin','editor','user']},
-  // role: {type: String, default: 'admin'},
 }, { toObject:{virtuals:true}, toJSON:{virtuals:true}});
 
 users.virtual('acl', {
@@ -81,7 +80,6 @@ users.statics.authenticateToken = function(token) {
     
     (SINGLE_USE_TOKENS) && parsedToken.type !== 'key' && usedTokens.add(token);
     let query = {_id: parsedToken.id};
-    console.log(query);
     return this.findOne(query);
   } catch(e) { console.log('rejecteds'); throw new Error('Invalid Token'); }
   
@@ -115,28 +113,21 @@ users.methods.comparePassword = function(password) {
 };
 
 users.methods.generateToken = function(type) {
-  console.log(this.role);
   let token = {
     id: this._id,
     capabilities: capabilities[this.role],
     type: type || this.role || 'user',
   };
-  console.log(capabilities[this.role]);
   let options = {};
   if ( type !== 'key' && !! TOKEN_EXPIRE ) { 
     options = { expiresIn: TOKEN_EXPIRE };
   }
-  console.log('further in generate');
   return jwt.sign(token, SECRET, options);
 };
 
 users.methods.can = function(capability) {
-  return this.acl.capabilities.includes(capability);
+  return capabilities[this.role].includes(capability);
 };
-
-// users.methods.can = function(capability) {
-//   return capabilities[this.role].includes(capability);
-// };
 
 users.methods.generateKey = function() {
   return this.generateToken('key');

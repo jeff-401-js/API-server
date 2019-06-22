@@ -30,7 +30,6 @@ module.exports = (capability) => {
       case 'basic':
         return utils._authBasic(req, authString, capability, next);
       case 'bearer':
-          console.log('authenticate');
         return utils._authBearer(req, authString, capability, next);
       default:
         return utils._authError(next);

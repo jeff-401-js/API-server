@@ -43,7 +43,6 @@ utils._authBasic = function(req, str, capability, next) {
   let bufferString = base64Buffer.toString();    // john:mysecret
   let [username, password] = bufferString.split(':'); // john='john'; mysecret='mysecret']
   let auth = {username, password}; // { username:'john', password:'mysecret' }
-console.log('basic');
   return User.authenticateBasic(auth)
     .then(user => utils._authenticate(req, user, capability, next))
     .catch(() => utils._authError(next));
@@ -61,7 +60,6 @@ utils._authenticate = function(req, user, capability, next) {
   if ( user && (!capability || (user.can(capability))) ) {
     req.user = user;
     req.token = user.generateToken();
-    console.log('toke', req.token);
     next();
   }
   else {

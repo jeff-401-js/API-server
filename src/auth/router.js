@@ -43,7 +43,6 @@ authRouter.post('/signup', (req, res, next) => {
   user.save()
     .then( (user) => {
       req.token = user.generateToken();
-      console.log(req.token);
       req.user = user;
       res.set('token', req.token);
       res.cookie('auth', req.token);
@@ -61,7 +60,6 @@ authRouter.post('/signup', (req, res, next) => {
  */
 
 authRouter.get('/signin', auth(), (req, res, next) => {
-  console.log('signin');
   res.cookie('auth', req.token);
   res.send(req.token);
 });

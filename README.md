@@ -58,8 +58,9 @@ Jeff
 * `GOOGLE_CLIENT_ID` - kljljlkjl
 * `GOOGLE_CLIENT_SECRET` - lkjlkjlkjl
 
+* `server restart may be required occasionally`
 
-* Add Roles with capabilities to db by going to --> localhost:3000/role in postman then adding
+* `Add Roles with capabilities to db by going to --> localhost:3000/role in postman then adding`
 
 {
 	"role": "user",
@@ -77,8 +78,7 @@ Jeff
 }
 
 #### Running the app
-* `npm run`
-* `nodemon index.js`
+* `npm start`
 
 * Endpoint: `/role`
   * sets up new role addition
