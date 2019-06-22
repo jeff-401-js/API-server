@@ -17,6 +17,7 @@ let utils = module.exports = {};
 const User = require('./users-model.js');
 
 /**
+ *   @method _authBearer
    * @param {object} req - request
    * @param {object} authString - user object containing user credentials
    * @param {object} capability - capabilities
@@ -31,6 +32,7 @@ utils._authBearer = function(req, authString, capability, next) {
 };
 
 /**
+ * @method _authBasic
  * @param {object} req - request
  * @param {object} str - string
  * @param {object} capability - capability
@@ -49,7 +51,8 @@ utils._authBasic = function(req, str, capability, next) {
 };
 
 /**
- * @param {object} req - request
+ *   @method _authenticate
+ *   @param {object} req - request
    * @param {object} user - user object containing user credentials
    * @param {object} capability - capability
    * @desc Handles authenticating a user and moves onto next middleware or returns and error
