@@ -91,15 +91,15 @@ Jeff
 * Endpoint `//api/v1/:model`
   * get route that gets all for either players, teams or categories
 * Endpoint `/api/v1/:model`
-  * post route that creates for either players, teams or categories
+  * post route that creates for either players, teams or categories - requires create authentication
 * Endpoint `//api/v1/:model/:id`
   * get route that returns a single player, team or category based on id
 * Endpoint `/api/v1/:model/:id`
-  * put route that updates a single player, team or category based on id
+  * put route that updates a single player, team or category based on id - requires update authentication
 * Endpoint `/api/v1/:model/:id`
-  * patch route that updates a single player, team or category based on id
+  * patch route that updates a single player, team or category based on id - requires update authentication
 * Endpoint `/api/v1/:model/:id`
-  * delete route that deletes a single player, team or category based on id
+  * delete route that deletes a single player, team or category based on id - requires delete authentication
 
 
 #### Tests
