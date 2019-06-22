@@ -18,30 +18,30 @@ Jeff
 * `index.js`
 * `src folder`
 *   * `api folder`
-*   * * `v1.js`
+*   * * `v1.js` - `exports - router`
 *   * `auth folder`
 *   * * `oauth folder`
-*   * * * `google.js`
-*   * * `middleware.js`
-*   * * `roles-model.js`
-*   * * `router.js`
-*   * * `users-model.js`
-*   * * `utils.js`
+*   * * * `google.js` - `exports - authorize`
+*   * * `middleware.js` - `exports - auth`
+*   * * `roles-model.js` - `exports - rolesSchema`
+*   * * `router.js` - `exports - authRouter`
+*   * * `users-model.js` - `exports - usersSchema`
+*   * * `utils.js` - `exports - utils object containing authbearer, authbasic and authenticate`
 *   * `middleware folder`
-*   * * `404.js`
-*   * * `500.js`
-*   * * `model-finder.js`
+*   * * `404.js` - `exports - 404 error`
+*   * * `500.js` - `exports - 500 error`
+*   * * `model-finder.js` - `exports - modelfinder`
 *   * `models folder`
 *   * * `categories folder`
-*   * * * `categories-model.js`
+*   * * * `categories-model.js` - `exports - new categories Schema`
 *   * * `players folder`
-*   * * * `players-model.js`
-*   * * * `players-schema.js`
+*   * * * `players-model.js` - `exports - new players Schema`
+*   * * * `players-schema.js` - `exports - players Schema`
 *   * * `teams folder`
-*   * * * `teams-model.js`
-*   * * * `teams-schema.js`
-*   * * `memory-model.js`
-*   * * `monngo-model.js`
+*   * * * `teams-model.js` - `exports - new teams Schema`
+*   * * * `teams-schema.js` - `exports - teams Schema`
+*   * * `memory-model.js` - `exports - memory model class containing sanintize, count, get by id, post, delete by id and put by id and entry`
+*   * * `monngo-model.js` - `exports - mongo model class containing get by id, post, put by id and entry and delete by id`
 *   * `app.js`
 
 
