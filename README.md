@@ -81,27 +81,25 @@ Jeff
 * `npm start`
 
 * Endpoint: `/role`
-  * sets up new role addition
+  * allows adding of roles through this route and postman
 * Endpoint: `/signup`
-  * starter code endpoint not used in this project.
+  * route to signup a new user with a username, pwd, email and role/capabilities
 * Endpoint: `/signin`
-  * starter code endpoint not used in this project.
+  * route to signin a user with username and pwd
 * Endpoint: `/oauth`
-  * authorization route
-* Endpoint: `/roles`
-  * initialize roles
+  * route to authenticate user throug oauth using their google login info
 * Endpoint `//api/v1/:model`
-  * handlegetall route
+  * get route that gets all for either players, teams or categories
 * Endpoint `/api/v1/:model`
-  * auth(create) handlepost
+  * post route that creates for either players, teams or categories
 * Endpoint `//api/v1/:model/:id`
-  * handlegetone
+  * get route that returns a single player, team or category based on id
 * Endpoint `/api/v1/:model/:id`
-  * auth(update) handleput
+  * put route that updates a single player, team or category based on id
 * Endpoint `/api/v1/:model/:id`
-  * auth(update) handleput
+  * patch route that updates a single player, team or category based on id
 * Endpoint `/api/v1/:model/:id`
-  * auth(delete) delete
+  * delete route that deletes a single player, team or category based on id
 
 
 #### Tests
